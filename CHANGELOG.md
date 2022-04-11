@@ -1,3 +1,7 @@
+V1.02 - 12/04/2022
+>ADDED:
+>>weapons
+
 V1.01 - 9/04/2022
 >ADDED:  
 >>asset management  

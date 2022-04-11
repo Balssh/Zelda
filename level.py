@@ -5,15 +5,20 @@ from player import Player
 from debug import debug
 from support import *
 from random import choice
-
+from weapon import Weapon
 class Level:
     def __init__(self):
         # sprite group setup
         self.visible_sprites = YSortCameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
         self.display_surface = pygame.display.get_surface()
+        
+        # attack sprites
+        self.current_attack = None
+
         # sprite setup
         self.create_map()
+
 
     def create_map(self):
         layouts = {
@@ -45,7 +50,15 @@ class Level:
                             object_image = graphics['objects'][int(col)]
                             Tile((x, y), [self.visible_sprites, self.obstacle_sprites], 'object', object_image)
                             
-        self.player = Player((2000, 1430), [self.visible_sprites], self.obstacle_sprites)
+        self.player = Player((2000, 1430), [self.visible_sprites], self.obstacle_sprites, self.create_attack, self.destroy_attack)
+
+    def create_attack(self):
+        self.current_attack = Weapon(self.player, [self.visible_sprites])
+
+    def destroy_attack(self):
+        if self.current_attack:
+            self.current_attack.kill()
+        self.current_attack = None
 
     def run(self):
         # update and draw the game
@@ -65,7 +78,6 @@ class YSortCameraGroup(pygame.sprite.Group):
         # creating the floor
         self.floor_surface = pygame.image.load('./graphics/tilemap/ground.png').convert()
         self.floor_rect = self.floor_surface.get_rect(topleft = (0, 0))
-
 
     def custom_draw(self, player):
         # getting the offset
