@@ -1,3 +1,8 @@
+V1.04 - 14/04/2022
+>ADDED:
+>>magic spells
+>>UI for magic selection
+
 V1.03 - 13/04/2022
 >ADDED:
 >>health, energy, experience indicators
