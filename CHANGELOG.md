@@ -1,3 +1,8 @@
+V1.03 - 13/04/2022
+>ADDED:
+>>health, energy, experience indicators
+>>weapon and magic selection boxes
+
 V1.02 - 12/04/2022
 >ADDED:
 >>weapons
