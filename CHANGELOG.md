@@ -1,3 +1,13 @@
+# VERSIONS
+
+V1.05 - 17/04/2022
+>ADDED:
+>>enemies
+>>enemies animations
+>>enemies move towards the player
+>FIXED:
+>>improved collisions
+
 V1.04 - 14/04/2022
 >ADDED:
 >>magic spells
