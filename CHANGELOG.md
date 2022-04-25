@@ -1,4 +1,7 @@
 # VERSIONS
+V1.06 - 25/04/2022
+>ADDED:
+>>player-enemy interaction
 
 V1.05 - 17/04/2022
 >ADDED:

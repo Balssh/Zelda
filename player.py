@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from settings import *
 from support import *
 from entity import Entity
@@ -37,7 +37,6 @@ class Player(Entity):
         self.magic = list(magic_data.keys())[self.magic_index]
         self.can_switch_magic = True
         self.magic_switch_time = None
-
         
         # stats
         self.stats = {'health': 100, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 5}
@@ -45,6 +44,11 @@ class Player(Entity):
         self.energy = self.stats['energy']
         self.experience = 123
         self.speed = self.stats['speed']
+
+        # damage timer
+        self.vulnerable = True
+        self.hurt_time = None
+        self.invulerability_duration = 500
 
     def import_player_assets(self):
         character_path = './graphics/player/'
@@ -123,7 +127,11 @@ class Player(Entity):
                 else:
                     self.magic_index = 0                    
                 self.magic = list(magic_data.keys())[self.magic_index]
-                
+
+            # if keys[pygame.K_ESCAPE]:
+            #     pygame.quit()
+            #     sys.exit()
+
     def get_status(self):
         # idle status
         if self.direction.x == 0 and self.direction.y == 0:
@@ -145,7 +153,7 @@ class Player(Entity):
     def cooldowns(self):
         current_time = pygame.time.get_ticks()
         if self.attacking:
-            if current_time - self.attack_time >= self.attack_cd:
+            if current_time - self.attack_time >= self.attack_cd + weapon_data[self.weapon]['cooldown']:
                 self.attacking = False 
                 self.destroy_attack()
 
@@ -156,6 +164,16 @@ class Player(Entity):
         if not self.can_switch_magic:
             if current_time - self.magic_switch_time >= self.switch_duration:
                 self.can_switch_magic = True
+
+        if not self.vulnerable:
+            if current_time - self.hurt_time >= self.invulerability_duration:
+                self.vulnerable = True
+                self.hurt_time = pygame.time.get_ticks()
+
+    def get_full_weapon_damage(self):
+        base_damage = self.stats['attack']
+        weapon_damage = weapon_data[self.weapon]['damage']
+        return base_damage + weapon_damage
 
     def animate(self):
         animation = self.animations[self.status]
@@ -168,6 +186,14 @@ class Player(Entity):
         # set the image
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center = self.hitbox.center)
+
+        # flicker
+        if not self.vulnerable:
+            alpha = self.wave_value()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
+
 
     def update(self):
         self.input()
