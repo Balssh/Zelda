@@ -35,6 +35,7 @@ V1.01 - 9/04/2022
 >>asset management  
 >>player animation  
 >>map loading  
+>
 >FIXED:  
 >>camera not properly centered  
 
