@@ -12,6 +12,7 @@ V1.05 - 17/04/2022
 >>enemies
 >>enemies animations
 >>enemies move towards the player
+
 >FIXED:
 >>improved collisions
 
