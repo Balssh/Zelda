@@ -1,6 +1,12 @@
 # VERSIONS
 V1.07 - 5/05/2022
 >ADDED:
+>>spell particles
+>>spell effects
+>>energy consumption and restoration
+
+V1.07 - 5/05/2022
+>ADDED:
 >>particles effects for attacks, monster deaths, grass
 
 V1.06 - 25/04/2022
